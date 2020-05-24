@@ -4,15 +4,15 @@ export async function watchChanges(
   config = { interval: 500 }
 ) {
   const watcher = Deno.watchFs(paths);
-  let detected = false;
+  let reloading = false;
 
   for await (const event of watcher) {
-    if (event.kind === "modify" && !detected) {
-      detected = true;
+    if (event.kind === "modify" && !reloading) {
+      reloading = true;
 
       onChange();
 
-      setTimeout(() => (detected = false), config.interval);
+      setTimeout(() => (reloading = false), config.interval);
     }
   }
 }
