@@ -1,5 +1,5 @@
 export function denoRun(cmd: string[]) {
-  Deno.run({
+  return Deno.run({
     cmd: ["deno", ...cmd],
   });
 }
